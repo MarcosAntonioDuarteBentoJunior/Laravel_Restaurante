@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+*{
+    font-family: 'Pacifico', cursive;
+}
+
+.fa-eraser{
+    color: red !important;
+}
+
+nav li a{
+    color: green !important;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+nav li a:hover{
+    color: greenyellow !important;
+}
+
+#home .carousel-indicators button{
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+}
+
+#home span{
+    color: greenyellow;
+}
+
+#home h3{
+    color: darkblue;
+}
+
+#pratos{
+    background-color: beige;
+}
+
+#pratos h2, #menu h2{
+    color: darkblue;
+}
+
+#pratos h3, #menu h3{
+    color: greenyellow;
+}
+
+#pratos .card{
+    background-color: white;
+}
+
+#pratos img{
+    height: 300px;
+    padding: 20px 20px !important;
+}
+
+#pratos i{
+    color: greenyellow;
+}
+
+#pratos .fa-cart-plus{
+    font-size: larger;
+}
+
+#pratos .btn:hover, #menu .btn:hover{
+    background-color: darkblue !important;
+}
+
+#about span{
+    margin: auto;
+    padding: auto;
+}
+
+#about h3{
+    color: greenyellow;
+}
+
+#about h2{
+    color: darkblue;
+}
+
+#about .btn{
+    background-color: darkblue;
+    color: whitesmoke;
+    transition: .3s;
+}
+
+#about .btn:hover{
+    background-color: greenyellow;
+    color: black;
+}
+
+#menu{
+    background-color: beige;
+}
+
+#menu img{
+    height: 300px;
+    border-radius: 12px;
+}
+
+#reserva{
+    background-image: url('/img/reserva-banner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+#reserva label{
+    color: white;
+}
+
+#reserva option{
+    color: black;
+}
+
+input, select{
+    background-color: transparent !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid black !important;
+}
+
+input:focus{
+    box-shadow: none !important;
+}
+
+select:focus{
+    box-shadow: none !important;
+}
+
+i{
+    color: greenyellow;
+    cursor: pointer;
+}
+
+.fa-star{
+    color: gold !important;
+}
+
+.review{
+    text-align: justify;
+}
+
+footer .fa-utensils{
+    color: darkblue;
+}
