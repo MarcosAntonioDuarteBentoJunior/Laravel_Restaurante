@@ -10,7 +10,7 @@
     <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- CSS PROPRIO -->
     <link rel="stylesheet" href="{{ url('/css/style.css') }}">
     <!-- FAVICON -->
@@ -79,30 +79,45 @@
                                         <div class="container py-3">
                                             <div class="row">
                                                 @if (!is_null($pedidoEmAberto))
-                                                    @foreach ($pedidoEmAberto->items as $item)
-                                                        <div class="justify-content-between d-flex text-center mb-3">
-                                                            <div class="col-4 align-self-center">
-                                                                <img src="{{ asset('storage/' . $item->image) }}" alt="" class="img-fluid w-50">
+                                                    @php
+                                                        $items = App\Models\ItemPedido::where('pedido_id', '=', $pedidoEmAberto->id)->count();
+                                                    @endphp
+
+                                                    @if ($items)
+                                                        @foreach ($pedidoEmAberto->items as $item)
+                                                            <div class="justify-content-between d-flex text-center mb-3">
+                                                                <div class="me-2 align-self-center">
+                                                                    <a href="{{ route('cart.remove', $item->id) }}" class="text-decoration-none">
+                                                                        <i class="fa-solid fa-xmark text-danger"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-4 align-self-center">
+                                                                    <img src="{{ asset('storage/' . $item->image) }}" alt="" class="img-fluid w-50">
+                                                                </div>
+                                                                <div class="col-4 align-self-center">
+                                                                    {{ $item->nome }}
+                                                                </div>
+                                                                <div class="col-4 align-self-center">
+                                                                    R$ {{ number_format($item->preco, 2, ',', '.') }}
+                                                                </div>
                                                             </div>
-                                                            <div class="col-4 align-self-center">
-                                                                {{ $item->nome }}
-                                                            </div>
-                                                            <div class="col-4 align-self-center">
-                                                                R$ {{ number_format($item->preco, 2, ',', '.') }}
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
+                                                        @endforeach
                                                     @else
+                                                        <div class="alert alert-info">
+                                                            Seu pedido ainda não possui items!
+                                                        </div>
+                                                    @endif
+                                                @else
                                                     <div class="alert alert-info">
                                                         Você não tem nenhum pedido em aberto!
                                                     </div>
-                                                    @endif
+                                                @endif
     
-                                                    @if(!is_null($pedidoEmAberto))
-                                                        <div class="text-center">
-                                                            <a href="{{ route('cart.confirm', $pedidoEmAberto->id)}}" class="btn btn-outline-success mt-4">Fechar Pedido</a>
-                                                        </div>
-                                                    @endif
+                                                @if(!is_null($pedidoEmAberto) && $items)
+                                                    <div class="text-center">
+                                                        <a href="{{ route('cart.confirm', $pedidoEmAberto->id)}}" class="btn btn-outline-success mt-4">Fechar Pedido</a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -138,6 +153,12 @@
     </header>
 
     <main>
+        <!-- BOTÃO PARA VOLTAR AO TOPO -->
+        <button type="button" class="btn-floating rounded-circle" id="btn-back-to-top">
+            <i class="fa-solid fa-angles-up"></i>
+        </button>
+
+
         <section id="home">
             <div id="carouselExampleIndicators" class="carousel carousel-dark slide mt-5" data-bs-ride="carousel" data-bs-touch="false" data-bs-interval="false">
                 <div class="carousel-indicators d-none d-md-flex">
@@ -538,6 +559,8 @@
 
         <!-- BOOTSTRAP JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- MAIN JS -->
+        <script src="{{ url('/js/app.js')}}"></script>
 
     </footer>
 </body>

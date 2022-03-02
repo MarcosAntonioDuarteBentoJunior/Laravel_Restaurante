@@ -85,7 +85,34 @@ class CartController extends Controller
         return redirect()->route('home')->with('success', $dados['quantidade'] . ' unidades do produto ' . $item->nome . ' estão no seu carrinho !');
     }
 
-    public function confirm($id){
+    public function remove($id)
+    {
+        if(session()->has('LoggedUser')){
+            $user = User::find(session('LoggedUser'));
+        } else {
+            return redirect()->route('home');
+        }
+
+        $item = Item::find($id)->first();
+        $pedidoEmAberto = Pedido::where('finalizado', '=', 0)->where('user_id', '=', $user->id)->first();
+
+        if(!$item || !$pedidoEmAberto){
+            abort('404');
+        }
+
+        $itemPedido = ItemPedido::where('pedido_id', '=', $pedidoEmAberto->id)->where('item_id', '=', $item->id)->first();
+
+        if(!$itemPedido){
+            abort('404');
+        }
+
+        $itemPedido->delete();
+
+        return redirect()->route('home');
+    }
+
+    public function confirm($id)
+    {
 
         if(session()->has('LoggedUser')){
             $user = User::find(session('LoggedUser'));
@@ -99,7 +126,8 @@ class CartController extends Controller
         return view('pedidos.confirm', compact('user', 'pedido', 'total'));
     }
 
-    public function close(Request $request, $id){
+    public function close(Request $request, $id)
+    {
 
         $pedido = Pedido::find($id);
 

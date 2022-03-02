@@ -51,6 +51,7 @@ Route::middleware(['isLogged'])->group(function () {
 
     Route::get('/carrinho/visualizar/{id}', [CartController::class, 'show'])->name('cart.show');
     Route::post('/carrinho/adicionar/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/carrinho/remover/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/carrinho/confirmar/{id}', [CartController::class, 'confirm'])->name('cart.confirm');
     Route::post('/carrinho/fechar-pedido/{id}', [CartController::class, 'close'])->name('cart.close');
 
